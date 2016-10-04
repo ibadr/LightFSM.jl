@@ -9,6 +9,20 @@ type FiniteStateMachine{StateT<:Enum,EventT<:Enum}
   map::Dict{EventT,Dict{StateT,StateT}}
   current::StateT
   terminal::StateT
+  FiniteStateMachine(map,current,terminal) =
+    new(map,current,terminal)
+end
+
+FiniteStateMachine{StateT<:Enum,EventT<:Enum}(::Type{StateT},::Type{EventT}) =
+  FiniteStateMachine{StateT,EventT}(Dict{EventT,Dict{StateT,StateT}}(),instances(StateT)[1],instances(StateT)[end])
+
+function FiniteStateMachine{StateT<:Enum,EventT<:Enum}(map::Dict{EventT,Dict{StateT,StateT}},
+  current::StateT,terminal::StateT)
+  fsm = FiniteStateMachine(StateT,EventT)
+  fsm.map = map
+  fsm.current = current
+  fsm.terminal = terminal
+  return fsm
 end
 
 function fire!{StateT<:Enum,EventT<:Enum}(fsm::FiniteStateMachine{StateT,EventT},
