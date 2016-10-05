@@ -1,5 +1,5 @@
 
-amap = Dict(stay=>Dict(ss_state1=>ss_state1))
+amap = Dict(stay=>(ss_state1=>ss_state1))
 fsmsingle = FiniteStateMachine(amap,ss_state1,ss_state1)
 @test fire!(fsmsingle,stay)
 @test finished(fsmsingle)
@@ -7,10 +7,10 @@ fsmsingle = FiniteStateMachine(amap,ss_state1,ss_state1)
 
 
 amap = Dict(
-startup => Dict(ts_state1=>ts_state1),
-st1_1 => Dict(ts_state1=>ts_state1),
-st1_2 => Dict(ts_state1=>ts_state2),
-st2_2 => Dict(ts_state2=>ts_state2)
+startup => (ts_state1=>ts_state1),
+st1_1 => (ts_state1=>ts_state1),
+st1_2 => (ts_state1=>ts_state2),
+st2_2 => (ts_state2=>ts_state2)
 )
 fsmtwostate = FiniteStateMachine(amap,ts_state1,ts_state2)
 
